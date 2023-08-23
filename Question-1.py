@@ -64,13 +64,14 @@ elif choice.lower() == 'c':
 # D. Number of duplicate numbers  
 elif choice.lower() == 'd':
     dups = []
-    count = 0
+    dict = {}
     for num in numbers:
-        if num in dups:
-            count += 1
+        if num in dups :
+            print(num)
+            dict[num] = True
         dups.append(num)
 
-    print ('Number of duplicates in arr',numbers,'is',count,'\n')
+    print ('Number of duplicates in arr',numbers,'is',len(dict),'with duplicate numbers',dict.keys(),'\n')
 
 
 # E. Display list without duplicate numbers
