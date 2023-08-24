@@ -42,11 +42,7 @@ most_frequent_names = {}
 # empty dictionary to store the frequency count for each element (key), 
 # and its corresponding value is a list with all elements that have this key's value
 for name in names:
-    if len(name) in most_frequent_names:
-        most_frequent_names[len(name)] += 1
-    else:
-        most_frequent_names[len(name)] = 1
-
+   most_frequent_names[len(name)] = most_frequent_names.get(len(name), 0) + 1
 
 # empty list to store ans in given format
 ans = []
