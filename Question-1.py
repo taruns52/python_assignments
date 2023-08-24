@@ -1,14 +1,14 @@
 # 1. Create a list of 10 numbers and show the 5 different operations options to the user on screen. The 5 different operations are as following,
-#  A. Length of the list
-#  B. Display first 3 numbers
-#  C. Display sum of odd numbers
-#  D. Number of duplicate numbers
-#  E. Display list without duplicate numbers
+# A. Length of the list
+# B. Display first 3 numbers
+# C. Display sum of odd numbers
+# D. Number of duplicate numbers
+# E. Display list without duplicate numbers
 
-#  Input:
+# Input:
 # numbers = [2, 4, 5, 2, 12, 44, 5, 1, 2, 3]
 
-#  Output:
+# Output:
 # If user select option A:
 # o Length of the list: 10 
 
@@ -23,3 +23,63 @@
 
 # If user select option E:
 # o List without duplicate numbers: [2, 3, 4, 12, 44, 1, 3]
+
+
+
+# Solution:
+
+from collections import Counter
+
+
+numbers = [2, 4, 5, 2, 12, 44, 5, 1, 2, 3]
+
+print("\n To select one of the following options just type 'A' or 'B' likewise....... \n")
+
+print(" A. Length of the list")
+
+print(" B. Display first 3 numbers")
+
+print(" C. Display sum of odd numbers")
+
+print(" D. Number of duplicate numbers")
+
+print(" E. Display list without duplicate numbers \n")
+
+choice = input("Type Here: ")
+
+print("You have choosen option",choice)
+
+# A. Length of the list
+if choice.lower() == 'a' :
+    print(f"Length of your list is {len(numbers)} ")
+
+# B. Display first 3 numbers
+elif choice.lower() == 'b':
+    print ("Your first three numbers are ", end=" ")
+    for x in numbers[:3]:
+        print(x, end=" ")
+
+# C. Display sum of odd numbers
+elif choice.lower() == 'c':
+    count=sum([i if i%2==1 else 0 for i in numbers])
+    print('Sum of all odd numbers is:',count )
+
+# D. Number of duplicate numbers  
+elif choice.lower() == 'd':
+    dups = []
+    dups_dict = Counter(numbers)
+    count = 0
+    for num, cnt in dups_dict.items():
+        if cnt > 1 :
+            dups.append(num)
+            count += 1
+  
+    print ('Number of duplicates in arr',numbers,'is',count,'with duplicate numbers',dups,'\n')
+
+
+# E. Display list without duplicate numbers
+elif choice.lower() == 'e':
+    print('List without duplicate numbers:',list(set(numbers)) )
+
+else:
+    print('\nInvalid Input!!!\n ')
