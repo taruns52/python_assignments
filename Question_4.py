@@ -8,8 +8,6 @@
 
 n = int(input("Enter any number to get nth Fibonacci Number: "))
 
-fibo_values = {}
-
 # def fib_recursive (num):
 #     if num < 2 :                                  #commented this function as it was unable to return 60th fibo no and used below one.
 #         return  num
@@ -34,10 +32,11 @@ def fib_recursive(n):
         answer = [tmp[0] + tmp[1], tmp[0]]
         return answer
         
-print(n,'th Fibbonacci number', fib_recursive(n))
+print(n,'th Fibbonacci number', fib_recursive(n)[0]) # fib_recursive(n)[0] , here added [0] as the data is returned in the format of [fibo no, prev fibo no ]
 
 
                     # --------------------------------------------------------------------------------------------
+
 
 # *> Create a recursion function that calculate the sum of numbers present in the list. 
 # o Input: numbers = [23, 44, 5, 67, 1, 1, 2, 4, 5]
