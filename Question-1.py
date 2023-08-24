@@ -28,6 +28,9 @@
 
 # Solution:
 
+from collections import Counter
+
+
 numbers = [2, 4, 5, 2, 12, 44, 5, 1, 2, 3]
 
 print("\n To select one of the following options just type 'A' or 'B' likewise....... \n")
@@ -64,14 +67,14 @@ elif choice.lower() == 'c':
 # D. Number of duplicate numbers  
 elif choice.lower() == 'd':
     dups = []
-    dict = {}
-    for num in numbers:
-        if num in dups :
-            print(num)
-            dict[num] = True
-        dups.append(num)
-
-    print ('Number of duplicates in arr',numbers,'is',len(dict),'with duplicate numbers',dict.keys(),'\n')
+    dups_dict = Counter(numbers)
+    count = 0
+    for num, cnt in dups_dict.items():
+        if cnt > 1 :
+            dups.append(num)
+            count += 1
+  
+    print ('Number of duplicates in arr',numbers,'is',count,'with duplicate numbers',dups,'\n')
 
 
 # E. Display list without duplicate numbers
