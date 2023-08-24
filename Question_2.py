@@ -23,6 +23,9 @@ names= ['Smith', 'Johnson', 'Williams', 'Jones', 'Brown', 'Davis', 'Miller',
 
 print('\n',names)
 
+def name_len_dict(value):
+    return [ name  for name in names if len(name) == value]      #values[0] = length of name , values[1] = count of names with same length
+
 
 # o Name lengths: [5, 7, 8, 5, 5, 5, 6, 6, 5, 6, 8, 6, 7, 5]
 name_lengths = [ len(name) for name in names ]
@@ -50,12 +53,9 @@ ans = []
 # loop through the keys and values from above dictionary
 # so that we can required answer in required format 
 for length in sorted(most_frequent_names.keys()):
-    temp_names = []
-
+    
     # get the number of times the current length occurs
-    for name in names:
-        if len(name)  == length:
-            temp_names.append(name)
+    temp_names = name_len_dict(length)
     
     # appending to the list named ans to store and print required values
     ans.append([most_frequent_names[length], length,  temp_names ])
@@ -82,13 +82,10 @@ rev_dict = sorted(most_frequent_names.items(), key = lambda x: x[1])[:3]
 # loop through the keys and values from above dictionary
 # so that we can required answer in required format 
 for values in rev_dict:
-    temp_names = []
 
-    # get the number of times the current length occurs
-    for name in names:
-        if len(name)  == values[0]:     #values[0] = length of name , values[1] = count of names with same length
-            temp_names.append(name)
-    
+    # get the number of times the current length occurs   
+    temp_names = name_len_dict(values[0])   #values[0] = length of name , values[1] = count of names with same length
+
     # creating the dictioanry named ans to store ans
     ans.append([ values[1], values[0], temp_names ])
     
