@@ -45,12 +45,23 @@ print(n,'th Fibbonacci number', fib_recursive(n))
 
 numbers = [23, 44, 5, 67, 1, 1, 2, 4, 5]
 
-def summation(total=0, numbers=[], index = -1):  
+# def summation(total=0, numbers=[], index = -1):           # Its my first code, and the better approach is below
     
-    if index < 0 :
-        return total
+#     if index < 0 :
+#         return total                      
+    
+#     else:
+#         return summation(total+numbers[index], numbers, index-1)
+
+# print("Answer = ", summation(0, numbers, len(numbers)-1))
+
+
+def summation(numbers):  
+    
+    if len(numbers) == 0 :
+        return 0
     
     else:
-        return summation(total+numbers[index], numbers, index-1)
+        return numbers[0] + summation(numbers[1:])
 
-print("Answer = ", summation(0, numbers, len(numbers)-1))
+print("Answer = ", summation(numbers))
