@@ -25,9 +25,7 @@ print('\n',names)
 
 
 # o Name lengths: [5, 7, 8, 5, 5, 5, 6, 6, 5, 6, 8, 6, 7, 5]
-name_lengths = []
-for i in names:
-    name_lengths.append(len(i))
+name_lengths = [ len(name) for name in names ]
 print("\nName lengths:", name_lengths,'\n')
 
 
@@ -39,23 +37,23 @@ print("\nName lengths:", name_lengths,'\n')
 # 4 names of length 6: ['Miller', 'Wilson', 'Taylor', 'Thomas']
 # 2 names of length 8: ['Williams', 'Anderson']
 
-dict = {}
+most_frequent_names = {}
 
 # empty dictionary to store the frequency count for each element (key), 
 # and its corresponding value is a list with all elements that have this key's value
 for name in names:
-    if len(name) in dict:
-        dict[len(name)] += 1
+    if len(name) in most_frequent_names:
+        most_frequent_names[len(name)] += 1
     else:
-        dict[len(name)] = 1
+        most_frequent_names[len(name)] = 1
 
 
-# empty dictionary to store ans in given format
-ans = {}
+# empty list to store ans in given format
+ans = []
 
 # loop through the keys and values from above dictionary
 # so that we can required answer in required format 
-for length in sorted(dict.keys()):
+for length in sorted(most_frequent_names.keys()):
     temp_names = []
 
     # get the number of times the current length occurs
@@ -63,16 +61,13 @@ for length in sorted(dict.keys()):
         if len(name)  == length:
             temp_names.append(name)
     
-    # creating the dictioanry named ans to store ans
-    ans[dict[length]] = {
-        length: temp_names 
-    }
+    # appending to the list named ans to store and print required values
+    ans.append([most_frequent_names[length], length,  temp_names ])
 
 # printing data in required format
 print('\nThe three most frequent name lenghts are:', '\n',)
 for x in ans:
-    for key , value in ans[x].items():
-        print('{} names of length {}: {}'.format(x, key, value))
+        print('{} names of length {}: {}'.format(x[0], x[1], x[2]))
 
 
 
@@ -84,8 +79,8 @@ for x in ans:
 # 2 names of length 8: ['Williams', 'Anderson']
 # 4 names of length 6: ['Miller', 'Wilson', 'Taylor', 'Thomas']
 
-ans = {}
-rev_dict = sorted(dict.items(), key = lambda x: x[1])[:3]
+ans = []
+rev_dict = sorted(most_frequent_names.items(), key = lambda x: x[1])[:3]
 
 
 # loop through the keys and values from above dictionary
@@ -95,18 +90,16 @@ for values in rev_dict:
 
     # get the number of times the current length occurs
     for name in names:
-        if len(name)  == values[0]:     #values[0] = length of name
+        if len(name)  == values[0]:     #values[0] = length of name , values[1] = count of names with same length
             temp_names.append(name)
     
     # creating the dictioanry named ans to store ans
-    ans[values[0]] = {
-        values[1]: temp_names 
-    }
+    ans.append([ values[1], values[0], temp_names ])
+    
 
-    # format -> count of names of same length : { length of name : [names] }
+    # format of ans list -> [count of names of same length , length of name , [names] ]
 
 # printing data in required format
 print('\nThe three least frequent name lenghts are:\n',)
 for x in ans:
-    for key , value in ans[x].items():
-        print('{} names of length {}: {}'.format( key,x, value))
+    print('{} names of length {}: {}'.format( x[0],x[1],x[2]))
