@@ -23,20 +23,15 @@ sentences = ["My name is Ram", "He is a good person", "You should be careful whi
 
 print('\nsentences', sentences, end='\n')
 
-word_list=[]    
-    
-for sentence in sentences:
-    sentence = sentence.split(' ')
-    word_list.append(sentence)
+ 
+word_list=[ sentence.split(' ') for sentence in sentences]    
 print('\n\nword_list', word_list, '\n\n')
 
+
 word_tree = {}
-
 for lst in word_list:
-    for word in lst:
-        if word not in word_tree:
-            word_tree[word] = 1
-        else:
-            word_tree[word] += 1
+    for word in lst:        
+        word_tree[word] = word_tree.get(word,0) + 1
 
+print('Number of time each word appears: \n')
 print ('word_tree:', word_tree )
