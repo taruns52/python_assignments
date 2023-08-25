@@ -15,29 +15,24 @@ sum = int(input("Enter Sum: "))
 
 Numbers = [9, 4, 8, 10, 2, 4, 8, 3, 14, 4, 8]
 
-temp_dict = {}
 solution = []
 
 for num in Numbers:
-    if sum-num in temp_dict and [num, sum-num] not in solution and [sum-num, num] not in solution:
+    if sum-num in Numbers and [num, sum-num] not in solution and [sum-num, num] not in solution:
         solution.append([sum-num, num])
-    else:
-        temp_dict[num] = False
-print(solution)
 
+print(solution)
 
 
 # Appraoach :
 
 '''
-sum = 12
-lets say temp_dict = { 9:False, 4:Fasle } and solution = [] after two iterations
+lets say, sum = 12
 
-next num is 8
-    if sum-num in temp_dict and [num, sum-num] not in solution and [sum-num, num] not in solution:
+    if sum-num in Numbers and [num, sum-num] not in solution and [sum-num, num] not in solution:
     
     1st condition: True
-        12 - 8 is 4 which in temp_dict
+        12 - 8 is 4 which in Numbers
     2nd condition and 3rd condition : True
         as [4,8] and [8,4] are not present in solutions list
 
