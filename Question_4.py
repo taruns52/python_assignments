@@ -6,6 +6,8 @@
 
 
 
+import time
+
 n = int(input("Enter any number to get nth Fibonacci Number: "))
 
 # def fib_recursive (num):
@@ -15,13 +17,11 @@ n = int(input("Enter any number to get nth Fibonacci Number: "))
 #          fib_recursive(num - 1) + fib_recursive(num - 2 )
 
 
-
-
                     # --------------------------------------------------------------------------------------------
 
 # o Also, check if your recursive function is able to return the Fibonacci value at 60th or 90th term? 
 # If no, then check the concept of memoization for Fibonacci in recursive way.
-
+start = time.time()
 
 def fib_recursive(n):
     if n <= 1:
@@ -33,7 +33,26 @@ def fib_recursive(n):
         return answer
         
 print(n,'th Fibbonacci number', fib_recursive(n)[0]) # fib_recursive(n)[0] , here added [0] as the data is returned in the format of [fibo no, prev fibo no ]
+end = time.time()
+print(n,'Run time', end - start)
+#  on input 999 -> Run time 0.00040 seconds
 
+
+
+start = time.time()
+fib_values = {}
+def fib_recursive (num):
+    if num < 2 :                                 
+        return  num
+    else:
+        if num not in fib_values:
+            fib_values[num] = fib_recursive(num - 1) + fib_recursive(num - 2 )
+        return fib_values[num]
+
+print(n,'th Fibbonacci number', fib_recursive(n))
+end = time.time()
+print(n,'Run time', end - start)
+#  on input 999 -> Run time 0.00060 seconds
 
                     # --------------------------------------------------------------------------------------------
 
