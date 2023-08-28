@@ -12,15 +12,23 @@ Input: emails = [abc@gmail.com, 123$tt*@xyz.com, good@bad@uk.in, nasa@usa12.spac
 Output: emails = [abc@gmail.com, nasa@usa12.space, no-reply@domain.in, ramhanuman@saketa.lok]
 
 '''
-# pattern = "^[a-zA-Z][\w\.-]*\@[\w]+[0-9]*(\.[a-zA-Z]{2,5})$"
 
 import re
+
+# Define a function to check if an email is valid
+def is_valid_email(email):
+    pattern =  r'^[a-zA-Z0-9_-]+@[a-zA-Z0-9]+.[a-zA-Z]{2,5}$'
+    return re.match(pattern, email) is not None
+
+
+
 emails = ['abc@gmail.com', '123$tt*@xyz.com', 'good@bad@uk.in', 'nasa@usa12.space', 'no-reply@domain.in', 
                 'ramhanuman@saketa.lok', 'ruhi.mohan@exter123.123', 'fake@fake123.fakercom']
 
-regex = r'[A-Za-z0-9_-]+@[A-Za-z0-9]+\.[A-Za-z]{2,3}'
 
-for email in emails:
-    if not bool(re.match(regex, email)):
-        emails.remove(email)
-print(*emails , sep="\n")
+# Filter out the valid emails using the is_valid_email function
+valid_emails = [email for email in emails if is_valid_email(email)]
+
+# Print the valid emails
+print(valid_emails)
+
