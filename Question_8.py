@@ -24,7 +24,6 @@ def heapify(arr, N, i):
 def heapSort(arr):
     N = len(arr)
 
-    # Build a maxheap.
     for i in range(N // 2 - 1, -1, -1):
         heapify(arr, N, i)
 
