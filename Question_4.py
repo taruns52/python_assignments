@@ -4,40 +4,9 @@
 # o Input: N=8
 # o Output: 21
 
-
-
 import time
 
 n = int(input("Enter any number to get nth Fibonacci Number: "))
-
-# def fib_recursive (num):
-#     if num < 2 :                                  #commented this function as it was unable to return 60th fibo no and used below one.
-#         return  num
-#     else:
-#          fib_recursive(num - 1) + fib_recursive(num - 2 )
-
-
-                    # --------------------------------------------------------------------------------------------
-
-# o Also, check if your recursive function is able to return the Fibonacci value at 60th or 90th term? 
-# If no, then check the concept of memoization for Fibonacci in recursive way.
-start = time.time()
-
-def fib_recursive(n):
-    if n <= 1:
-        answer = [n, 0]
-        return answer
-    else:
-        tmp = fib_recursive(n-1)
-        answer = [tmp[0] + tmp[1], tmp[0]]
-        return answer
-        
-print(n,'th Fibbonacci number', fib_recursive(n)[0]) # fib_recursive(n)[0] , here added [0] as the data is returned in the format of [fibo no, prev fibo no ]
-end = time.time()
-print(n,'Run time', end - start)
-#  on input 999 -> Run time 0.00040 seconds
-
-
 
 start = time.time()
 fib_values = {}
@@ -52,9 +21,6 @@ def fib_recursive (num):
 print(n,'th Fibbonacci number', fib_recursive(n))
 end = time.time()
 print(n,'Run time', end - start)
-#  on input 999 -> Run time 0.00060 seconds
-
-                    # --------------------------------------------------------------------------------------------
 
 
 # *> Create a recursion function that calculate the sum of numbers present in the list. 
@@ -62,17 +28,6 @@ print(n,'Run time', end - start)
 # o Output: 152
 
 numbers = [23, 44, 5, 67, 1, 1, 2, 4, 5]
-
-# def summation(total=0, numbers=[], index = -1):           # Its my first code, and the better approach is below
-    
-#     if index < 0 :
-#         return total                      
-    
-#     else:
-#         return summation(total+numbers[index], numbers, index-1)
-
-# print("Answer = ", summation(0, numbers, len(numbers)-1))
-
 
 def summation(numbers):  
     
