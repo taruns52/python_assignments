@@ -27,11 +27,15 @@ sentences = ["My name is Ram", "He is a good person", "You should be careful whi
 print('\nsentences', sentences, end='\n')
 
  
-word_list=[ sentence.split(' ') for sentence in sentences]    
+# word_list=[ sentence.split(' ') for sentence in sentences]
+
+sentences = " ".join(sentences)
+print(sentences)
+word_list = sentences.split(" ")
 print('\n\nword_list', word_list, '\n\n')
 
 # The argument of counter should be a list but word_list is a list of list , hence used list comprehension to flatten the list 
-word_tree = dict(collections.Counter([word for words in word_list for word in words]))
+word_tree = dict(collections.Counter(word_list))
 
 
 print('Number of time each word appears: \n')
