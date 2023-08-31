@@ -9,14 +9,15 @@ _____
 '''
 print("Expression-1")
 global k 
-
+n = int(input("Enter any number to dispaly Expression-1"))
+n = n//2 + 1 if n%2!=0 else n//2
 k = 1
-for j in range(2,-1,-1):
+for j in range(n,0,-1):
     print(j*'*' + k*'-' + j*'*')
     k += 2
 
-k = 3
-for j in range(1,3):
+k = k-4
+for j in range(2,n+1):
     print(j*'*' + k*'-' + j*'*')
     k -= 2
 
@@ -30,15 +31,17 @@ _***_
 __*__
 '''
 print("\nExpression-2")
+n = int(input("Enter any number to dispaly Expression-4"))
 
+n = n//2 + 1 if n%2!=0 else n//2
 k = 1
-for j in range(2,-1,-1):
-    print(j*'-' + k*'*' + j*'-')
+for j in range(n,0,-1):
+    print(j*'*' + k*'-' + j*'*')
     k += 2
 
-k = 3
-for j in range(1,3):
-    print(j*'-' + k*'*' + j*'-')
+k = k-4
+for j in range(2,n+1):
+    print(j*'*' + k*'-' + j*'*')
     k -= 2
 
 
@@ -52,7 +55,8 @@ Expression - 3:
 *****
 '''
 print("\nExpression-3")
-for i in range(1,6):  
+n = int(input("Enter any number to dispaly Expression-3"))
+for i in range(1,n+1):  
     if i%4 == 0 or i%3==0:
         print('*'+'-'*(i-2)+'*')
     else:
@@ -70,8 +74,10 @@ Expression - 4:
 '''
 
 print("\nExpression-4")
-for i in range(6):
-    if i%5 == 0:
+
+n = int(input("Enter any number to dispaly Expression-4"))
+for i in range(n+1):
+    if i == 0 or i == n:
         print('*'*5)
     else:
         print('*---*')
@@ -88,8 +94,9 @@ Expression - 5:
 11 12 13 14 15
 '''
 print("\nExpression-5")
+n =int(input('enter the no. of rows for Expression-5'))   #rows
 k = 1
-for i in range(6):
+for i in range(n+1):
     for j in range(i):
         print(k, end=' ')
         k += 1
