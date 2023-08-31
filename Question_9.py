@@ -26,12 +26,10 @@ from datetime import datetime, timedelta
 # function to convert days to hours and reduce it to 75%
 # as 6 hrs are to be removed from a 24 hour interval and cout only 18 hrs from a full day
 # and 18 hrs are 75% of 24 hrs
-def days_to_hours(diff, i):
-    x = (
-        timedelta(days=(diff.days - i)).total_seconds() / 3600
-    )  # days to hours conversion
-    y = timedelta(hours=x * 0.75)
-    return y
+def days_to_hours(diff, i, night_end):
+    # intermediate days * (24 hrs - night_end (e.g in this case is 6 hrs))
+    timestamp = (diff.days - i) * (timedelta(hours=23, minutes=59, seconds=59, microseconds=999999) - night_end)
+    return timestamp
 
 
 # Demo input : 2023-08-25 11:09
@@ -78,9 +76,10 @@ day_end = timedelta(hours=23, minutes=59, seconds=59, microseconds=999999)
 if diff.days < 1:
     if start_date == end_date:
         if start_time > night_end:
-            result = end_time - start_time
+            day_first = end_time - start_time    
         else:
-            result = end_time - night_end
+            day_first = end_time - night_end
+        day_last = night_start
 
     else:
         if start_time > night_end:
@@ -93,8 +92,8 @@ if diff.days < 1:
         else:
             day_last = night_start
 
-    z = days_to_hours(diff, 0) + day_first + day_last
-    print("Final Result :-> ", z)
+    z = days_to_hours(diff, 0, night_end) + day_first + day_last
+
 
 # if total diffrence between input start and end time stamp is <= 2
 elif diff.days <= 2:
@@ -108,11 +107,12 @@ elif diff.days <= 2:
     else:
         day_last = night_start
 
-    z = days_to_hours(diff, 1) + day_first + day_last
-    print("Final Result :-> ", z)
+    z = days_to_hours(diff, 1, night_end) + day_first + day_last
+
 
 # if total diffrence between input start and end time stamp is > 2
 elif diff.days > 2:
+    print(' diff.days > 2', diff.days)
     if start_time > night_end:
         day_first = day_end - start_time
     else:
@@ -123,5 +123,6 @@ elif diff.days > 2:
     else:
         day_last = night_start
 
-    z = days_to_hours(diff, 2) + day_first + day_last
-    print("Final Result :-> ", z)
+    z = days_to_hours(diff, 2, night_end) + day_first + day_last
+    
+print("\nFinal Result :-> ", z,'\n')
