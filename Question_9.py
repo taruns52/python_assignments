@@ -4,125 +4,52 @@ Calculates the difference between start_time and end_time by removing night inte
 (Hint: You can use python intervals module)         
 """
 
-'''
-Approach:
 
-We will get two inputs as start time timestamp and end time timestamp,
-
-So lets divide this time interval in three parts :
-
-1)Start Day
-2)Intermediate Days
-3)Last Days
-
-Here calculation for intermediate days is pretty straight forward as we just have to subtract 6 hours from every intermedite day
-For Start we have to check and count the valid hours same goes for Last Day
-At last the summation of start day hrs, last day hrs, intermediate days hrs will give us desired result.
-'''
+import portion as P
+import datetime as dt
 
 
-from datetime import datetime, timedelta
-
-# function to convert days to hours and reduce it to 75%
-# as 6 hrs are to be removed from a 24 hour interval and cout only 18 hrs from a full day
-# and 18 hrs are 75% of 24 hrs
-def days_to_hours(diff, i, night_end):
-    # intermediate days * (24 hrs - night_end (e.g in this case is 6 hrs))
-    timestamp = (diff.days - i) * (timedelta(hours=23, minutes=59, seconds=59, microseconds=999999) - night_end)
-    return timestamp
+# function to convert a datetime to a number of minutes since epoch
+def datetime_to_minutes(datetime):
+    epoch = dt.datetime.utcfromtimestamp(0)
+    return (datetime - epoch).total_seconds() / 60
 
 
-# Demo input : 2023-08-25 11:09
-start_time = datetime.strptime(
-    input(
-        "Enter Start time in format of YYYY-MM-DD hh:mm : ",
-    ),
-    "%Y-%m-%d %H:%M",
-)
-end_time = datetime.strptime(
-    input(
-        "Enter End time in format of YYYY-MM-DD hh:mm : ",
-    ),
-    "%Y-%m-%d %H:%M",
-)
-start_date = start_time.date()
-end_date = end_time.date()
-
-diff = end_date - start_date  # timedelta object
-print("Difference between two days", diff)
-
-# Start time after exluding date from input start timestamp
-start_time = timedelta(
-    hours=int(start_time.time().hour),
-    minutes=int(start_time.time().minute),
-    seconds=int(start_time.time().second),
-    microseconds=int(start_time.time().microsecond),
-)
-
-# end time after exluding date from input end timestamp
-end_time = timedelta(
-    hours=int(end_time.time().hour),
-    minutes=int(end_time.time().minute),
-    seconds=int(end_time.time().second),
-    microseconds=int(end_time.time().microsecond),
-)
-
-# required variables
-night_end = timedelta(hours=6)
-night_start = timedelta(hours=0)
-day_end = timedelta(hours=23, minutes=59, seconds=59, microseconds=999999)
-
-# if total diffrence between input start and end time stamp is less than 24 hrs
-if diff.days < 1:
-    if start_date == end_date:
-        if start_time > night_end:
-            day_first = end_time - start_time    
-        else:
-            day_first = end_time - night_end
-        day_last = night_start
-
-    else:
-        if start_time > night_end:
-            day_first = day_end - start_time
-        else:
-            day_first = day_end - night_end
-
-        if end_time > night_end:
-            day_last = end_time - night_end
-        else:
-            day_last = night_start
-
-    z = days_to_hours(diff, 0, night_end) + day_first + day_last
+# function to convert a number of minutes since epoch to a datetime
+def minutes_to_datetime(minutes):
+    epoch = dt.datetime.utcfromtimestamp(0)
+    return epoch + dt.timedelta(minutes=minutes)
 
 
-# if total diffrence between input start and end time stamp is <= 2
-elif diff.days <= 2:
-    if start_time > night_end:
-        day_first = day_end - start_time
-    else:
-        day_first = day_end - night_end
+start_time_str = input("Enter start time (YYYY-MM-DD HH:MM): ")
+end_time_str = input("Enter end time (YYYY-MM-DD HH:MM): ")
 
-    if end_time > night_end:
-        day_last = end_time - night_end
-    else:
-        day_last = night_start
+start_time = dt.datetime.strptime(start_time_str, "%Y-%m-%d %H:%M")
+end_time = dt.datetime.strptime(end_time_str, "%Y-%m-%d %H:%M")
 
-    z = days_to_hours(diff, 1, night_end) + day_first + day_last
+start_minutes = datetime_to_minutes(start_time)
+end_minutes = datetime_to_minutes(end_time)
 
+whole_interval = P.closed(start_minutes, end_minutes)
 
-# if total diffrence between input start and end time stamp is > 2
-elif diff.days > 2:
-    print(' diff.days > 2', diff.days)
-    if start_time > night_end:
-        day_first = day_end - start_time
-    else:
-        day_first = day_end - night_end
+night_interval = P.empty()
 
-    if end_time > night_end:
-        day_last = end_time - night_end
-    else:
-        day_last = night_start
+# Loop through each day in the time span
+for day in range(start_time.date().toordinal(), end_time.date().toordinal() + 1):
+    date = dt.date.fromordinal(day)
 
-    z = days_to_hours(diff, 2, night_end) + day_first + day_last
-    
-print("\nFinal Result :-> ", z,'\n')
+    night_start = datetime_to_minutes(dt.datetime.combine(date, dt.time(0, 0)))
+    night_end = datetime_to_minutes(dt.datetime.combine(date, dt.time(6, 0)))
+
+    night_interval = night_interval | P.closed(night_start, night_end)
+
+    daytime_interval = whole_interval - night_interval
+
+    # Sum up the lengths of all atomic intervals in the daytime interval
+    daytime_minutes = sum(
+        interval.upper - interval.lower for interval in daytime_interval
+    )
+
+    daytime_delta = dt.timedelta(minutes=daytime_minutes)
+
+print("Result ->", daytime_delta)
