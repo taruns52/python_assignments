@@ -10,7 +10,7 @@ _____
 print("Expression-1")
 global k 
 n = int(input("Enter any number to dispaly Expression-1 :-> "))
-n = n//2 + 1 if n%2!=0 else n//2
+n = (n+1)//2
 k = 1
 for j in range(n,0,-1):
     print(j*'*' + k*'-' + j*'*')
@@ -31,7 +31,7 @@ _***_
 __*__
 '''
 print("\nExpression-2")
-n = int(input("Enter any number to dispaly Expression-2 :-> "))
+n = int(input("Enter any number to display Expression-2 :-> "))
 
 n = n//2 + 1 if n%2!=0 else n//2
 k = 1
